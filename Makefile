@@ -104,6 +104,6 @@ re:			fclean all
 git:
 			git add .
 			git commit -m "auto commit"
-			git push
+			git push origin main
 
 .PHONY:		all clean fclean re git
