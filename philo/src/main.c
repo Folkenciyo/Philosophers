@@ -15,7 +15,7 @@ int	main(int argc, char **argv)
 {
 	if (check_input(argc, argv) != 0)
 	{
-		//print_error_instruction();
+		print_instruction();
 		return (WRONG_INPUT);
 	}
 	//if (philosophers(argc, argv) != 0)

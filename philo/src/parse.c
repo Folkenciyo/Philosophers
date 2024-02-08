@@ -12,6 +12,23 @@
 
 #include "../include/philo.h"
 
+void	print_instruction(void)
+{
+	printf("\t\tWRONG INPUT!\n\n");
+	printf("./philo nb_philos time_to_die ");
+	printf("time_to_eat time_to_sleep ");
+	printf("number_of_times_each_philosopher_must_eat ");
+	printf("(optional argument)\n");
+	printf("Example:\n\n");
+	printf("./philo 4 800 200 200 5\n\n");
+	printf("nb_philos: 1-200\n");
+	printf("time_to_die: 60+\n");
+	printf("time_to_eat: 60+\n");
+	printf("time_to_sleep: 60+\n");
+	printf("number_of_times_each_philosopher_must_eat: ");
+	printf("0+\n");
+}
+
 int	ft_atoi(char *str)
 {
 	int		count;
@@ -38,6 +55,23 @@ int	ft_atoi(char *str)
 	return (result * sign);
 }
 
+int	wrong_input_check(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (argc == 6 && ft_atoi(argv[5]) <= 0)
+		return (WRONG_INPUT);
+	if (ft_atoi(argv[i]) < 1 || ft_atoi(argv[i]) > 200)
+		return (WRONG_INPUT);
+	while (++i < 5)
+	{
+		if (ft_atoi(argv[i]) < 60)
+			return (WRONG_INPUT);
+	}
+	return (0);
+}
+
 int	is_input_digit(int argc, char **argv)
 {
 	int	i;
@@ -62,7 +96,7 @@ int	is_input_digit(int argc, char **argv)
 
 int	check_input(int argc, char **argv)
 {
-	if (argc < 5 || argc > 6)
+	if (argc <= 5 || argc > 6)
 	{
 		print_error("Wrong numbers of arguments!", WRONG_INPUT);
 		return (WRONG_INPUT);

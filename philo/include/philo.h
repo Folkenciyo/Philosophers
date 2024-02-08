@@ -31,7 +31,9 @@
 # define EAT "is eating"
 # define DIED "died"
 
+
 int	    check_input(int argc, char **argv);
 int 	print_error(char *msg, int ERROR_);
+void	print_instruction(void);
 
 #endif
