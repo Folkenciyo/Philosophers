@@ -11,6 +11,20 @@
 /* ************************************************************************** */
 #include "../include/philo.h"
 
+int	philosophers(int argc, char **argv)
+{
+	t_data	*data;
+
+	if (init_data(&data, argc, argv) != 0)
+		return (MALLOC_ERROR);
+	//init_philos(data);
+	//init_forks(&data);
+	//run_threads(&data);
+	//join_threads(&data);
+	//free_data(&data);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	if (check_input(argc, argv) != 0)
@@ -18,7 +32,7 @@ int	main(int argc, char **argv)
 		print_instruction();
 		return (WRONG_INPUT);
 	}
-	//if (philosophers(argc, argv) != 0)
-	//	return (MALLOC_ERROR);
+	if (philosophers(argc, argv) != 0)
+		return (MALLOC_ERROR);
 	return (0);
 }

@@ -96,7 +96,7 @@ int	is_input_digit(int argc, char **argv)
 
 int	check_input(int argc, char **argv)
 {
-	if (argc <= 5 || argc > 6)
+	if (argc < 5 || argc > 6)
 	{
 		print_error("Wrong numbers of arguments!", WRONG_INPUT);
 		return (WRONG_INPUT);
