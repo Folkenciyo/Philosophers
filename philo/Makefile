@@ -51,7 +51,7 @@ AR				= ar rcs
 
 #Sources
 
-SRC_FILES	=	main parse error
+SRC_FILES	=	main parse error init_data
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -89,6 +89,7 @@ fclean:		clean
 
 re:			fclean all
 			@echo "$(YELLOW)$(NAME) recompiled!$(DEF_COLOR)"
+			@echo "\n"
 			@echo "$(PURPLE)        ##### ##      /           ###                                             /"
 			@echo "     ######  /###   #/        #    ###                                          #/"
 			@echo "    /#   /  /  ###  ##       ###    ##                                          ##"
@@ -108,7 +109,7 @@ re:			fclean all
 			@echo " ###    /                 /                                          ##               /"
 			@echo "  #####/                 /                                           ##              /"
 			@echo "    ###                 /                                             ##            /$(DEF_COLOR)"
-			
+			@echo "\n"
 
 git:
 			git add .

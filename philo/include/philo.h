@@ -32,7 +32,19 @@
 # define DIED "died"
 
 # define RED "\033[0;31m"
+# define GREEN 	"\033[0;92m"
 # define DEFAULT "\033[;0m"
+
+typedef enum e_philo_state
+{
+	EATING = 0,
+	SLEEPING = 1,
+	THINKING = 2,
+	DEAD = 3,
+	FULL = 4,
+	IDLE = 5
+}	t_state;
+
 
 struct	s_data;
 
@@ -54,6 +66,7 @@ struct	s_data;
 typedef struct s_philo
 {
 	int				id;
+	int				nb_meals_had;
 	struct s_data	*data;
 	t_state			state;
 	pthread_mutex_t	*left_f;
@@ -110,7 +123,12 @@ typedef struct s_data
 	pthread_t		*philo_ths;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
-}t_data;
+}	t_data;
+
+//init_data.c
+int		init_data(t_data *data, int argc, char **argv);
+int		malloc_data(t_data *data);
+int		init_philos(t_data *data);
 
 // parse.c
 int		check_input(int argc, char **argv);

@@ -14,6 +14,6 @@
 
 int	print_error(char *msg, int ERROR_)
 {
-	printf("\033[0;91m %s\n", msg);
+	printf("\033[0;91m %s\n\033[;0m", msg);
 	return (ERROR_);
 }

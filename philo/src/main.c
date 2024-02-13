@@ -15,9 +15,12 @@ int	philosophers(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (init_data(&data, argc, argv) != 0)
+	data = malloc(sizeof(t_data));
+	if (data == NULL)
 		return (MALLOC_ERROR);
-	//init_philos(data);
+	if (init_data(data, argc, argv) != 0)
+		return (MALLOC_ERROR);
+	init_philos(data);
 	//init_forks(&data);
 	//run_threads(&data);
 	//join_threads(&data);
