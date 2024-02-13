@@ -6,7 +6,7 @@
 /*   By: juguerre <juguerre@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:05:26 by juguerre          #+#    #+#             */
-/*   Updated: 2024/02/13 19:16:18 by juguerre         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:53:38 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	init_philos(t_data *data)
 {
 	t_philo	*philos;
 	int		i;
+	int		color
 
 	i = -1;
 	philos = data->philos;
@@ -29,32 +30,12 @@ int	init_philos(t_data *data)
 		pthread_mutex_init(&philos[i].mut_nb_meals_had, NULL);
 		pthread_mutex_init(&philos[i].mut_last_eat_time, NULL);
 		//update_last_meal_time(&philos[i]);
-		 int color = 30 + (i % 8); // Esto mapeará i a un número entre 30 y 37
-    	printf("\033[0;%dmPhilo[%i] initialized!\n\033[0m", color, philos[i].id);
+		color = 30 + (i % 8);
+		printf("\033[0;%dmPhilo[%i] initialized!\n\033[0m",
+			color, philos[i].id);
 	}
 	return (0);
 }
-/* int	init_philos(t_data *data)
-{
-	t_philo	*philos;
-	int		i;
-
-	i = -1;
-	philos = data->philos;
-	while (++i < data->nb_philos)
-	{
-		philos[i].data = data;
-		philos[i].id = i + 1;
-		philos[i].nb_meals_had = 0;
-		philos[i].state = IDLE;
-		pthread_mutex_init(&philos[i].mut_state, NULL);
-		pthread_mutex_init(&philos[i].mut_nb_meals_had, NULL);
-		pthread_mutex_init(&philos[i].mut_last_eat_time, NULL);
-		update_last_meal_time(&philos[i]);
-	}
-	return (0);
-} */
-
 
 int	malloc_data(t_data *data)
 {
