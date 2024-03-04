@@ -10,21 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
+
+uint64_t	get_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL))
+		return (0);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
 
 /* 
 
 struct timeval {
-    time_t      tv_sec;     // seconds
-    suseconds_t tv_usec;    // microseconds
+	time_t      tv_sec;     // seconds
+	suseconds_t tv_usec;    // microseconds
 };
 
 struct timeval tiempo_actual;
 // Obtener la fecha y hora actual
-    if (gettimeofday(&tiempo_actual, NULL) == -1) {
-        perror("Error al obtener la fecha y hora actual");
-        return 1;  // Salir con código de error
-    }
+	if (gettimeofday(&tiempo_actual, NULL) == -1) {
+		perror("Error al obtener la fecha y hora actual");
+		return 1;  // Salir con código de error
+	}
 
 // Imprimir la información sobre la fecha y hora actual
 	printf("tiempo en años: %ld\n", tiempo_actual.tv_sec / 31536000);
@@ -32,6 +41,6 @@ struct timeval tiempo_actual;
 	printf("tiempo en dias: %ld\n", tiempo_actual.tv_sec / 86400);
 	printf("tiempo en horas: %ld\n", tiempo_actual.tv_sec / 3600);
 	printf("tiempo en minutos: %ld\n", tiempo_actual.tv_sec / 60);
-    printf("Segundos: %ld\n", tiempo_actual.tv_sec);
-    printf("Microsegundos: %ld\n", tiempo_actual.tv_usec);
+	printf("Segundos: %ld\n", tiempo_actual.tv_sec);
+	printf("Microsegundos: %ld\n", tiempo_actual.tv_usec);
  */

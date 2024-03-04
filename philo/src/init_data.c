@@ -12,28 +12,56 @@
 
 #include "../include/philo.h"
 
+int	init_forks(t_data *data)
+{
+	int		i;
+	t_philo	*philos;
+
+	i = -1;
+	philos = data->philos;
+	printf("\n\e[4mFORKS INITIALIZATION\e[0m:\n\n");
+	sleep(1);
+	while (++i < data->nb_philos)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		printf("\033[0;%dmFork[%i] initialized!\033[0m\n",
+			philos[i].color, i + 1);
+	}
+	i = 0;
+	philos[i].left_f = &data->forks[i];
+	philos[i].right_f = &data->forks[data->nb_philos - 1];
+	while (++i < data->nb_philos)
+	{
+		philos[i].left_f = &data->forks[i];
+		philos[i].right_f = &data->forks[i - 1];
+	}
+	return (0);
+}
+
 int	init_philos(t_data *data)
 {
 	t_philo	*philos;
 	int		i;
-	int		color
 
 	i = -1;
 	philos = data->philos;
+	printf("\n\e[4mPHILOSOPHERS INITIALIZATION\e[0m:\n\n");
+	sleep(1);
 	while (++i < data->nb_philos)
 	{
 		philos[i].data = data;
 		philos[i].id = i + 1;
+		philos[i].color = 30 + (i % 8);
 		philos[i].nb_meals_had = 0;
 		philos[i].state = IDLE;
 		pthread_mutex_init(&philos[i].mut_state, NULL);
 		pthread_mutex_init(&philos[i].mut_nb_meals_had, NULL);
 		pthread_mutex_init(&philos[i].mut_last_eat_time, NULL);
-		//update_last_meal_time(&philos[i]);
-		color = 30 + (i % 8);
+		update_last_meal_time(&philos[i]);
 		printf("\033[0;%dmPhilo[%i] initialized!\n\033[0m",
-			color, philos[i].id);
+			philos[i].color, philos[i].id);
 	}
+	sleep(1);
 	return (0);
 }
 
@@ -79,11 +107,7 @@ int	init_data(t_data *data, int argc, char **argv)
 	pthread_mutex_init(&data->mut_nb_philos, NULL);
 	pthread_mutex_init(&data->mut_keep_iter, NULL);
 	pthread_mutex_init(&data->mut_start_time, NULL);
-	printf("\033[0;92mData initialized!\n\033[;0m");
-/*	printf("nb_philos: %d\n", data->nb_philos);
- 	printf("time_to_die: %llu\n", data->die_time);
-	printf("time_to_eat: %llu\n", data->eat_time);
-	printf("time_to_sleep: %llu\n", data->sleep_time);
-	printf("number_of_times_each_philosopher_must_eat: %d\n", data->nb_meals); */
+	printf("\e[45mData initialized!\033[;0m\n\n");
+	sleep(1);
 	return (malloc_data(data));
 }

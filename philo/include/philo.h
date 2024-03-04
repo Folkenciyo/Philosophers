@@ -21,9 +21,11 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include <inttypes.h>
+# include <stdint.h>
 
 # define WRONG_INPUT 1
 # define MALLOC_ERROR 2
+# define PTHREAD_ERROR 3
 
 # define TAKE_FORKS "has taken a fork"
 # define THINK "is thinking"
@@ -55,7 +57,8 @@ struct	s_data;
  * @param id El identificador único del filósofo.
  * @param nb_meals_had El número de comidas que ha tenido el filósofo.
  * @param data Un puntero a la estructura de datos compartida.
- * @param state El estado actual del filósofo (por ejemplo, pensando, comiendo, durmiendo).
+ * @param state El estado actual del filósofo (por ejemplo, pensando,
+ * 				comiendo, durmiendo).
  * @param left_f Un puntero al mutex del tenedor izquierdo del filósofo.
  * @param right_f Un puntero al mutex del tenedor derecho del filósofo.
  * @param mut_state Un mutex para cambiar el estado del filósofo de forma segura.
@@ -66,6 +69,7 @@ struct	s_data;
 typedef struct s_philo
 {
 	int				id;
+	int				color;
 	int				nb_meals_had;
 	struct s_data	*data;
 	t_state			state;
@@ -126,18 +130,36 @@ typedef struct s_data
 }	t_data;
 
 //init_data.c
-int		init_data(t_data *data, int argc, char **argv);
-int		malloc_data(t_data *data);
-int		init_philos(t_data *data);
+int			init_data(t_data *data, int argc, char **argv);
+int			malloc_data(t_data *data);
+int			init_philos(t_data *data);
+int			init_forks(t_data *data);
 
 // parse.c
-int		check_input(int argc, char **argv);
-int		ft_atoi(char *str);
-void	print_instruction(void);
-int		wrong_input_check(int argc, char **argv);
-int		is_input_digit(int argc, char **argv);
+int			check_input(int argc, char **argv);
+int			ft_atoi(char *str);
+void		print_instruction(void);
+int			wrong_input_check(int argc, char **argv);
+int			is_input_digit(int argc, char **argv);
+
+// time.c
+uint64_t	get_time(void);
+
+// eat_f_1.c
+void		update_last_meal_time(t_philo *philo);
+
+// sleep.c
+void	ft_usleep(uint64_t sleep_time);
+int		ft_sleep(t_philo *philo);
+
+// getters_f_1.c
+int			get_nb_philos(t_data *data);
+t_state		get_philo_state(t_philo *philo);
+
+// routine.c
+void		*routine(void *philo_p);
 
 // error.c
-int		print_error(char *msg, int ERROR_);
+int			print_error(char *msg, int ERROR_);
 
 #endif
