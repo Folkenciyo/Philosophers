@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   eat_f.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juguerre <juguerre@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 13:12:48 by juguerre          #+#    #+#             */
-/*   Updated: 2024/03/04 10:50:20 by juguerre         ###   ########.fr       */
+/*   Created: 2024/02/22 19:37:06 by juguerre          #+#    #+#             */
+/*   Updated: 2024/03/04 10:51:13 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	print_msg(t_data *data, int id, char *msg)
+void	update_last_meal_time(t_philo *philo)
 {
-	uint64_t	time;
-
-	time = get_time() - get_start_time(data);
-	pthread_mutex_lock(&data->mut_print);
-	if (get_keep_iter(data))
-		printf("%llu %d %s\n", time, id, msg);
-	pthread_mutex_unlock(&data->mut_print);
+	pthread_mutex_lock(&philo->mut_last_eat_time);
+	philo->last_eat_time = get_time();
+	pthread_mutex_unlock(&philo->mut_last_eat_time);
 }
 
-void	print_mut(t_data *data, char *msg)
+int	eat(t_philo *philos)
 {
-	pthread_mutex_lock(&data->mut_print);
-	printf("%s\n", msg);
-	pthread_mutex_unlock(&data->mut_print);
+	if (take_forks(philos) != 0)
+		return (1);
+	set_philo_state(philos, EATING);
+	return (0);
 }

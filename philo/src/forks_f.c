@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   forks_f.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juguerre <juguerre@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 13:12:48 by juguerre          #+#    #+#             */
-/*   Updated: 2024/03/04 10:50:20 by juguerre         ###   ########.fr       */
+/*   Created: 2024/03/04 10:23:32 by juguerre          #+#    #+#             */
+/*   Updated: 2024/03/04 19:08:28 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	print_msg(t_data *data, int id, char *msg)
+int take_left_fork(t_philo *philo)
 {
-	uint64_t	time;
-
-	time = get_time() - get_start_time(data);
-	pthread_mutex_lock(&data->mut_print);
-	if (get_keep_iter(data))
-		printf("%llu %d %s\n", time, id, msg);
-	pthread_mutex_unlock(&data->mut_print);
+	if (philo_died(philo) || get_philo_state(philo) == FULL)
+		return (1);
+	
+	return (0);
 }
-
-void	print_mut(t_data *data, char *msg)
+int	take_forks(t_philo *philos)
 {
-	pthread_mutex_lock(&data->mut_print);
-	printf("%s\n", msg);
-	pthread_mutex_unlock(&data->mut_print);
+	if (get_nb_philos(philos->data) == 1)
+		return (handle_a_philo(philos));
+/* 	if (take_right_fork(philo) != 0)
+		return (1);
+	if (take_left_fork(philo) != 0)
+	{
+		drop_right_fork(philo);
+		return (1);
+	} */
+	return (0);
 }

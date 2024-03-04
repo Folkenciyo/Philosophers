@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juguerre <juguerre@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: juguerre <juguerre@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:55:52 by juguerre          #+#    #+#             */
-/*   Updated: 2024/02/23 15:55:52 by juguerre         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:11:27 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	*routine(void *philo_p)
 			break ;
 		if (get_philo_state(philo) == DEAD)
 			break ;
-		if (think(philo) != 0)
-			break ;
+		/* if (think(philo) != 0)
+			break ; */
 	}
 	return (NULL);
 }

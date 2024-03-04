@@ -51,8 +51,8 @@ AR				= ar rcs
 
 #Sources
 
-SRC_FILES	=	main parse error init_data eat_f_1 time getters_f_1 routine\
-				setter print sleep 
+SRC_FILES	=	main parse error init_data eat_f forks_f time getters_f_1 routine\
+				setters print sleep utils philo_check
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
