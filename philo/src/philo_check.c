@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   think.c                                            :+:      :+:    :+:   */
+/*   philo_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juguerre <juguerre@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: juguerre <juguerre@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 21:34:21 by juguerre          #+#    #+#             */
-/*   Updated: 2024/03/12 10:57:30 by juguerre         ###   ########.fr       */
+/*   Created: 2024/03/04 19:01:00 by juguerre          #+#    #+#             */
+/*   Updated: 2024/03/04 19:07:10 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	think(t_philo *philo)
+bool	philo_dead(t_philo *philo)
 {
-	set_philo_state(philo, THINKING);
-	if (get_philo_state(philo) == DEAD)
-		return (1);
-	print_msg(philo->color, philo->data, philo->id, THINK);
-	return (0);
+	bool	result;
+	t_data	*data;
+
+	data = philo->data;
+	result = false;
+	if (get_time() - get_last_eat_time(philo) > get_die_time(data)
+		&& get_philo_state(philo) != FULL)
+	{
+		set_philo_state(philo, DEAD);
+		result = true;
+	}
+	return (result);
 }

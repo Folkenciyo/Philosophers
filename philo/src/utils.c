@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   think.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juguerre <juguerre@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: juguerre <juguerre@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 21:34:21 by juguerre          #+#    #+#             */
-/*   Updated: 2024/03/12 10:57:30 by juguerre         ###   ########.fr       */
+/*   Created: 2024/03/04 18:35:56 by juguerre          #+#    #+#             */
+/*   Updated: 2024/03/04 19:03:59 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	think(t_philo *philo)
+int	handle_a_philo(t_philo *philo)
 {
-	set_philo_state(philo, THINKING);
-	if (get_philo_state(philo) == DEAD)
-		return (1);
-	print_msg(philo->color, philo->data, philo->id, THINK);
-	return (0);
+	take_left_fork(philo);
 }

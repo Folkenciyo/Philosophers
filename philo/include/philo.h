@@ -81,14 +81,18 @@ typedef struct s_philo
 }t_philo;
 
 /**
- * @brief La estructura 't_data' representa los datos compartidos entre todos los filósofos. 
+ * @brief La estructura 't_data' representa los datos compartidos entre todos
+ * los filósofos. 
  * 
  * @param nb_philos El número total de filósofos.
  * @param nb_meals El número total de comidas que deben tener los filósofos.
- * @param nb_full_p El número de filósofos que están llenos (han comido el número requerido de comidas).
- * @param keep_iterating Un booleano para determinar si los filósofos deben seguir iterando.
+ * @param nb_full_p El número de filósofos que están llenos (han comido el número
+ * 				requerido de comidas).
+ * @param keep_iterating Un booleano para determinar si los filósofos deben 
+ * 				seguir iterando.
  * @param eat_time El tiempo que un filósofo pasa comiendo.
- * @param die_time El tiempo que un filósofo puede pasar sin comer antes de morir.
+ * @param die_time El tiempo que un filósofo puede pasar sin comer antes de
+ * 				morir.
  * @param sleep_time El tiempo que un filósofo pasa durmiendo.
  * @param start_time El tiempo en el que comenzó la simulación.
  * @param mut_eat_t Un mutex para cambiar el tiempo de comer de forma segura.
@@ -178,6 +182,10 @@ bool		get_keep_iter(t_data *data);
 // setters.c
 void		set_keep_iterating(t_data *data, bool set_to);
 void		set_philo_state(t_philo *philo, t_state state);
+
+// setter.c
+void		set_philo_state(t_philo *philo, t_state state);
+void		set_keep_iterating(t_data *data, bool set_to);
 
 // routine.c
 void		*routine(void *philo_p);
