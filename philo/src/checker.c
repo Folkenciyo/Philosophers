@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eat_f_1.c                                          :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juguerre <juguerre@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:37:06 by juguerre          #+#    #+#             */
-/*   Updated: 2024/02/22 19:37:06 by juguerre         ###   ########.fr       */
+/*   Created: 2024/03/11 18:46:54 by juguerre          #+#    #+#             */
+/*   Updated: 2024/03/11 18:46:54 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	update_last_meal_time(t_philo *philo)
+bool	check_philo_died(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->mut_last_eat_time);
-	philo->last_eat_time = get_time();
-	pthread_mutex_unlock(&philo->mut_last_eat_time);
+	bool		result;
+	t_data		*data;
+
+	data = philo->data;
+	result = false;
+	if (get_time() - get_last_eat_time(philo) > get_die_time(data)
+		&& get_philo_state(philo) != EATING)
+	{
+		set_philo_state(philo, DEAD);
+		result = true;
+	}
+	return (result);
 }

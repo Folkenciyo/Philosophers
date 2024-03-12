@@ -11,6 +11,26 @@
 /* ************************************************************************** */
 #include "../include/philo.h"
 
+int	join_threads(t_data *data)
+{
+	int	i;
+	int	nb_philos;
+
+	nb_philos = get_nb_philos(data);
+	i = -1;
+	if (pthread_join(data->check_all_alive, NULL))
+		return (1);
+	if (nb_meals_option(data) == true
+		&& pthread_join(data->check_all_full, NULL))
+		return (1);
+	while (++i < nb_philos)
+	{
+		if (pthread_join(data->philo_ths[i], NULL))
+			return (1);
+	}
+	return (0);
+}
+
 int	run_threads(t_data *data)
 {
 	int	i;
@@ -25,6 +45,13 @@ int	run_threads(t_data *data)
 				&routine, &data->philos[i - 1]) != 0)
 			return (PTHREAD_ERROR);
 	}
+	/* if (pthread_create(&data->check_all_alive, NULL,
+			&all_alive_routine, data))
+		return (1); */
+	/* if (nb_meals_option(data) == true
+		&& pthread_create(&data->check_all_full, NULL,
+			&all_full_routine, data)) */
+		return (1);
 	return (0);
 }
 
@@ -39,9 +66,10 @@ int	philosophers(int argc, char **argv)
 		return (MALLOC_ERROR);
 	init_philos(data);
 	init_forks(data);
+	printf("\n\e[4mSTARTING THE SHOW\e[0m:\n\n");
 	run_threads(data);
-	//join_threads(&data);
-	//free_data(&data);
+	//join_threads(data);
+	//free_data(data);
 	return (0);
 }
 

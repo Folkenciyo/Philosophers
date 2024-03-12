@@ -30,6 +30,7 @@ int	init_forks(t_data *data)
 	i = 0;
 	philos[i].left_f = &data->forks[i];
 	philos[i].right_f = &data->forks[data->nb_philos - 1];
+	printf("\n");
 	while (++i < data->nb_philos)
 	{
 		philos[i].left_f = &data->forks[i];

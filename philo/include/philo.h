@@ -33,10 +33,6 @@
 # define EAT "is eating"
 # define DIED "died"
 
-# define RED "\033[0;31m"
-# define GREEN 	"\033[0;92m"
-# define DEFAULT "\033[;0m"
-
 typedef enum e_philo_state
 {
 	EATING = 0,
@@ -61,9 +57,12 @@ struct	s_data;
  * 				comiendo, durmiendo).
  * @param left_f Un puntero al mutex del tenedor izquierdo del filósofo.
  * @param right_f Un puntero al mutex del tenedor derecho del filósofo.
- * @param mut_state Un mutex para cambiar el estado del filósofo de forma segura.
- * @param mut_nb_meals_had Un mutex para cambiar el número de comidas que ha tenido el filósofo de forma segura.
- * @param mut_last_eat_time Un mutex para cambiar la última vez que el filósofo comió de forma segura.
+ * @param mut_state Un mutex para cambiar el estado del filósofo de forma 
+ * segura.
+ * @param mut_nb_meals_had Un mutex para cambiar el número de comidas
+ *  que ha tenido el filósofo de forma segura.
+ * @param mut_last_eat_time Un mutex para cambiar la última 
+ * vez que el filósofo comió de forma segura.
  * @param last_eat_time La última vez que el filósofo comió.
  */
 typedef struct s_philo
@@ -99,8 +98,8 @@ typedef struct s_philo
  * @param mut_nb_philos Un mutex para cambiar el número de filósofos de forma segura.
  * @param mut_keep_iter Un mutex para cambiar el booleano 'keep_iterating' de forma segura.
  * @param mut_start_time Un mutex para cambiar el tiempo de inicio de forma segura.
- * @param monit_all_alive Un hilo para monitorear si todos los filósofos están vivos.
- * @param monit_all_full Un hilo para monitorear si todos los filósofos están llenos.
+ * @param check_all_alive Un hilo para checkorear si todos los filósofos están vivos.
+ * @param check_all_full Un hilo para checkorear si todos los filósofos están llenos.
  * @param philo_ths Un array de hilos, cada uno representando a un filósofo.
  * @param forks Un array de mutex, cada uno representando a un tenedor.
  * @param philos Un array de 't_philo', cada uno representando a un filósofo.
@@ -122,8 +121,8 @@ typedef struct s_data
 	pthread_mutex_t	mut_nb_philos;
 	pthread_mutex_t	mut_keep_iter;
 	pthread_mutex_t	mut_start_time;
-	pthread_t		monit_all_alive;
-	pthread_t		monit_all_full;
+	pthread_t		check_all_alive;
+	pthread_t		check_all_full;
 	pthread_t		*philo_ths;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
@@ -144,22 +143,56 @@ int			is_input_digit(int argc, char **argv);
 
 // time.c
 uint64_t	get_time(void);
+uint64_t	get_die_time(t_data *data);
+uint64_t	get_sleep_time(t_data *data);
+uint64_t	get_start_time(t_data *data);
+uint64_t	get_last_eat_time(t_philo *philo);
 
-// eat_f_1.c
+// eat.c
 void		update_last_meal_time(t_philo *philo);
+int			eat(t_philo *philo);
+
+//fork.c
+int			take_forks(t_philo *philo);
+int			take_left_fork(t_philo *philo);
+int			take_right_fork(t_philo *philo);
+void		drop_left_fork(t_philo *philo);
+void		drop_right_fork(t_philo *philo);
 
 // sleep.c
-void	ft_usleep(uint64_t sleep_time);
-int		ft_sleep(t_philo *philo);
+void		ft_usleep(uint64_t sleep_time);
+int			ft_sleep(t_philo *philo);
 
-// getters_f_1.c
+//think.c
+int			think(t_philo *philo);
+
+// philo_n_meal_f.c
+int			handle_1_philo(t_philo *philo);
+bool		nb_meals_option(t_data *data);
+
+// getters.c
 int			get_nb_philos(t_data *data);
 t_state		get_philo_state(t_philo *philo);
+bool		get_keep_iter(t_data *data);
+
+// setters.c
+void		set_keep_iterating(t_data *data, bool set_to);
+void		set_philo_state(t_philo *philo, t_state state);
 
 // routine.c
 void		*routine(void *philo_p);
 
+// checker.c
+bool		check_philo_died(t_philo *philo);
+
+// print.c
+void		print_msg(int color, t_data *data, int id, char *msg);
+void		print_mut(t_data *data, char *msg);
+
 // error.c
 int			print_error(char *msg, int ERROR_);
+
+// free.c
+void		free_data(t_data *data);
 
 #endif

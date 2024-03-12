@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getters_f_1.c                                      :+:      :+:    :+:   */
+/*   philo_n_meal_f.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juguerre <juguerre@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 15:13:56 by juguerre          #+#    #+#             */
-/*   Updated: 2024/02/23 15:13:56 by juguerre         ###   ########.fr       */
+/*   Created: 2024/03/11 11:39:10 by juguerre          #+#    #+#             */
+/*   Updated: 2024/03/11 11:39:10 by juguerre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-t_state	get_philo_state(t_philo *philo)
-{
-	t_state	state;
 
-	pthread_mutex_lock(&philo->mut_state);
-	state = philo->state;
-	pthread_mutex_unlock(&philo->mut_state);
-	return (state);
+int	handle_1_philo(t_philo *philo)
+{
+	take_left_fork(philo);
+	ft_usleep(get_die_time(philo->data));
+	set_philo_state(philo, DEAD);
+	return (1);
 }
 
-int    get_nb_philos(t_data *data)
+bool	nb_meals_option(t_data *data)
 {
-    int    nb_philos;
-
-    pthread_mutex_lock(&data->mut_nb_philos);
-    nb_philos = data->nb_philos;
-    pthread_mutex_unlock(&data->mut_nb_philos);
-    return (nb_philos);
+	if (data->nb_meals > 0)
+		return (true);
+	return (false);
 }
