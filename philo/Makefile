@@ -52,7 +52,8 @@ AR				= ar rcs
 #Sources
 
 SRC_FILES	=	main parse error init_data eat time getters routine\
-				setters print sleep philo_n_meal fork checker free think
+				setters print sleep philo_n_meal take_fork drop_fork\
+				checker free think
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

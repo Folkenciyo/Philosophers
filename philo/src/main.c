@@ -43,14 +43,14 @@ int	run_threads(t_data *data)
 	{
 		if (pthread_create(data->philo_ths, NULL,
 				&routine, &data->philos[i - 1]) != 0)
-			return (PTHREAD_ERROR);
+			return (print_error("Error creating threads", PTHREAD_ERROR));
+		if (pthread_create(&data->check_all_alive, NULL,
+				&all_alive_routine, data))
+			return (1);
 	}
-	/* if (pthread_create(&data->check_all_alive, NULL,
-			&all_alive_routine, data))
-		return (1); */
-	/* if (nb_meals_option(data) == true
+	if (nb_meals_option(data) == true
 		&& pthread_create(&data->check_all_full, NULL,
-			&all_full_routine, data)) */
+			&all_full_routine, data))
 		return (1);
 	return (0);
 }
@@ -68,8 +68,8 @@ int	philosophers(int argc, char **argv)
 	init_forks(data);
 	printf("\n\e[4mSTARTING THE SHOW\e[0m:\n\n");
 	run_threads(data);
-	//join_threads(data);
-	//free_data(data);
+	join_threads(data);
+	free_data(data);
 	return (0);
 }
 
@@ -78,9 +78,9 @@ int	main(int argc, char **argv)
 	if (check_input(argc, argv) != 0)
 	{
 		print_instruction();
-		return (WRONG_INPUT);
+		return (print_error("Try to introduce the correct input", WRONG_INPUT));
 	}
 	if (philosophers(argc, argv) != 0)
-		return (MALLOC_ERROR);
+		return (print_error("Malloc allocation has an error", MALLOC_ERROR));
 	return (0);
 }

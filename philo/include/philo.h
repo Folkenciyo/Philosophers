@@ -156,15 +156,19 @@ uint64_t	get_last_eat_time(t_philo *philo);
 void		update_last_meal_time(t_philo *philo);
 int			eat(t_philo *philo);
 
-//fork.c
+//take_fork.c
 int			take_forks(t_philo *philo);
 int			take_left_fork(t_philo *philo);
 int			take_right_fork(t_philo *philo);
+
+//drop_fork.c
+void		drop_forks(t_philo *philo);
 void		drop_left_fork(t_philo *philo);
 void		drop_right_fork(t_philo *philo);
 
 // sleep.c
 void		ft_usleep(uint64_t sleep_time);
+void		sleep_for_eating(t_philo *philo);
 int			ft_sleep(t_philo *philo);
 
 //think.c
@@ -175,7 +179,9 @@ int			handle_1_philo(t_philo *philo);
 bool		nb_meals_option(t_data *data);
 
 // getters.c
+uint64_t	get_eat_time(t_data *data);
 int			get_nb_philos(t_data *data);
+int			get_nb_meals_philo_had(t_philo *philo);
 t_state		get_philo_state(t_philo *philo);
 bool		get_keep_iter(t_data *data);
 
@@ -192,6 +198,10 @@ void		*routine(void *philo_p);
 
 // checker.c
 bool		check_philo_died(t_philo *philo);
+void		*all_alive_routine(void *data_p);
+void		*all_full_routine(void *data_p);
+void		notify_all_philos(t_data *data);
+bool		is_philo_full(t_data *data, t_philo *philo);
 
 // print.c
 void		print_msg(int color, t_data *data, int id, char *msg);

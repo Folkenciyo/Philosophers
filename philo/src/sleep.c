@@ -12,6 +12,11 @@
 
 #include "../include/philo.h"
 
+void	sleep_for_eating(t_philo *philo)
+{
+	ft_usleep(get_eat_time(philo->data));
+}
+
 int	ft_sleep(t_philo *philo)
 {
 	set_philo_state(philo, SLEEPING);
