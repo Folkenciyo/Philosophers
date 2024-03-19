@@ -44,10 +44,10 @@ int	run_threads(t_data *data)
 		if (pthread_create(data->philo_ths, NULL,
 				&routine, &data->philos[i - 1]) != 0)
 			return (print_error("Error creating threads", PTHREAD_ERROR));
-		if (pthread_create(&data->check_all_alive, NULL,
-				&all_alive_routine, data))
-			return (1);
 	}
+	if (pthread_create(&data->check_all_alive, NULL,
+			&all_alive_routine, data))
+		return (1);
 	if (nb_meals_option(data) == true
 		&& pthread_create(&data->check_all_full, NULL,
 			&all_full_routine, data))
